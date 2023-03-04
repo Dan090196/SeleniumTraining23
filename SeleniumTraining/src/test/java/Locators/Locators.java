@@ -8,12 +8,13 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+
 public class Locators
 {
     private WebDriver driver;
 
     @BeforeTest
-    public void Setup()
+    public void Setup() throws InterruptedException
     {
         //Se coloca la dirección del driver, según corresponda, (chrome, mozilla, edge...)
         System.setProperty("webdriver.chrome.driver", "src/main/resources/Drivers/chromedriver.exe");
@@ -27,7 +28,7 @@ public class Locators
         //Enviamos la URL al navegador
         driver.get("https://demo.guru99.com/test/newtours/");
         driver.manage().deleteAllCookies();
-        //Thread.sleep(2000);
+        Thread.sleep(3000);
     }
 
     @Test
@@ -83,12 +84,25 @@ public class Locators
         //Diferencias
         //El xpath absoluto es toda la ruta del elemento, es decir, la ubicación del mismo y su sintaxis inicia con una diagonal
 
-        //*********** Xpath Absoluto
-        WebElement userName = driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[3]/form/table/tbody/tr[4]/td/table/tbody/tr[2]/td[2]/input"));
+        //*********** Xpath Absoluto **************
+        /*WebElement userName = driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[3]/form/table/tbody/tr[4]/td/table/tbody/tr[2]/td[2]/input"));
         userName.sendKeys("Locura");
+        Thread.sleep(3000);*/
+
+        //*********** Xpath Relativo **************
+        //El uso de xpath relativo inicia con doble // (diagonal)
+        //El uso de xpath relativo se realiza por medio de los tags y atributos, entiendase que tags, son: img, 
+
+        // 1 Atributo
+        /*WebElement userName = driver.findElement(By.xpath("//input[@name='userName']"));
+        userName.sendKeys("REGISTRO");
+        Thread.sleep(3000);*/
+
+        //2 Atributo
+        WebElement demoSite = driver.findElement(By.xpath("//@[title='Home' and @styles='font-size:32px;']"));
+        demoSite.click();
         Thread.sleep(3000);
     }
-
     @AfterTest
     public void TearDown()
     {
